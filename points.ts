@@ -1,4 +1,4 @@
-// @flow
+// typescript
 
 // bool
 const isDone: boolean = false

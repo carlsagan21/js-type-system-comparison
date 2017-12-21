@@ -16,34 +16,34 @@ const list: Array<number> = [1, 2, 3]
 const x: [string, number] = ["hello", 10]
 
 // object, no dynamic binding
-let obj2: { bar: number } = { bar: 1 };
-obj2.foo = 2; // Property not found in object literal
+let obj2: { bar: number } = { bar: 1 }
+obj2.foo = 2 // Property not found in object literal
 
 // structural typing
 interface Named {
-  name: string;
+  name: string
 }
 class Person {
-  name: string;
+  name: string
 }
-let p: Named;
-p = new Person(); // OK, because of structural typing
+let p: Named
+p = new Person() // OK, because of structural typing
 
 // subtype
-let a: Named;
-let y = { name: "Alice", location: "Seattle" }; // y's inferred type is { name: string; location: string; }
-a = y;
+let a: Named
+const y = { name: "Alice", location: "Seattle" } // y's inferred type is { name: string; location: string; }
+a = y
 
 // generic
 interface NotEmpty<T> {
-  data: T;
+  data: T
 }
-let b: NotEmpty<number>;
+let b: NotEmpty<number>
 
 // intersection
-type A = { a: number };
-type B = { b: boolean };
-type C = { c: string };
+type A = { a: number }
+type B = { b: boolean }
+type C = { c: string }
 
 function method(value: A & B & C) {
   // ...
@@ -55,15 +55,15 @@ type Result = "success" | "danger"
 // function getColor(name: Result): Color {
 function getColor(name: Result) {
   switch (name) {
-    case "success": return "Green";
-    case "danger": return "Red";
+    case "success": return "Green"
+    case "danger": return "Red"
   }
   // throw new Error("ss")
   name
 }
-getColor("success"); // Works!
-getColor("danger");  // Works!
-// getColor("error");   // Error!
+getColor("success") // Works!
+getColor("danger")  // Works!
+// getColor("error")   // Error!
 
 // union refinement
 type Success = {kind: "success", value: 1}
