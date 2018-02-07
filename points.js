@@ -63,7 +63,7 @@ function getColor(name: Result) {
 }
 getColor("success") // Works!
 getColor("danger")  // Works!
-// getColor("error")   // Error!
+getColor("error")   // Error!
 
 // union refinement
 type Success = {kind: "success", value: 1}
@@ -71,16 +71,44 @@ type Danger = {kind: "danger", message: "e"}
 type Result2 = Success | Danger
 function getColor2(name: Result2): Color {
   if (name.kind === "success") {
-    name
     return "Green"
   } else if (name.kind === "danger"){
-    name
     return "Red"
-  } else {
+  }
+  else {
     // if ask type of name, not covered -> likely be unreachable
     // but if else do not exist, return type is Color | void. refinement is not working.
     // can make a guess using "not covered" as refinement
+    // to ways to solve this
+    // 1. return unreacable in else
+    // 2. throw error in else
     name
+    throw new 
     return "Red"
+    // throw new Error("unreachable")
   }
 }
+
+type Nat =
+  null
+  | () => Nat
+
+const zero : Nat = null
+const succ : Nat => Nat = n => () => n
+const succ1 : Nat => null = n => () => n
+const one : Nat = () => zero
+const two : Nat = () => one
+const two1 : Nat = () => 1
+
+const nat2Int : Nat => number = n => {
+  if (n === null) {
+    n()
+    return 0
+  } else {
+    n
+    return 1 + nat2Int(n())
+  }
+}
+
+console.log(nat2Int(two))
+console.log(nat2Int(succ(succ(zero))))

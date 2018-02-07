@@ -63,13 +63,14 @@ function getColor(name: Result) {
 }
 getColor("success"); // Works!
 getColor("danger");  // Works!
-// getColor("error");   // Error!
+getColor("error");   // Error!
 
 // union refinement
 type Success = { kind: "success", value: 1 }
 type Danger = { kind: "danger", message: "e" }
 type Result2 = Success | Danger
 function getColor2(name: Result2): Color {
+  name
   if (name.kind === "success") {
     name
     return "Green"
@@ -84,3 +85,27 @@ function getColor2(name: Result2): Color {
     return "Red"
   }
 }
+
+type Nat =
+  null
+  | (() => Nat)
+
+const zero: Nat = null
+const succ: (n: Nat) => Nat = n => () => n
+const succ1: (n: Nat) => null = n => (() => n)
+const one: Nat = () => zero
+const two: Nat = () => one
+const two1: Nat = () => 1
+
+const nat2Int: (n: Nat) => number = n => {
+  if (n === null) {
+    n()
+    return 0
+  } else {
+    n
+    return 1 + nat2Int(n())
+  }
+}
+
+console.log(nat2Int(two))
+console.log(nat2Int(succ(succ(zero))))
